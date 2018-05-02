@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="Untitled" targetNamespace="http://www.techlab.fr/businessv2services/WS/saveTask" xmlns:ns5="http://www.techlab.fr/SGOV2/Schemas/Context" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://www.techlab.fr/businessv2services/WS/saveTask" xmlns:ns0="http://www.techlab.fr/SGOV2/Schemas/SaveTask/SaveTaskRequest.xsd" xmlns:ns2="http://www.techlab.fr/SGOV2/Schemas/TechnicalException" xmlns:ns1="http://www.techlab.fr/SGOV2/Schemas/SaveTask/SaveTaskResponse.xsd" xmlns:ns4="http://www.techlab.com/schemas/BUSINESSV2-Services/SharedResources/Partners/Schema.xsd" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns3="http://www.techlab.fr/SGOV2/Schemas/FunctionnalException">
+  <wsdl:types>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.techlab.com/schemas/BUSINESSV2-Services/SharedResources/Partners/Schema.xsd" xmlns="http://www.techlab.com/schemas/BUSINESSV2-Services/SharedResources/Partners/Schema.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="Name" type="xs:string"/>
+      <xs:element name="Value" type="xs:string"/>
+      <xs:element name="formField">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="ns4:Name"/>
+            <xs:element ref="ns4:Value"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.techlab.fr/SGOV2/Schemas/Context" xmlns="http://www.techlab.fr/SGOV2/Schemas/Context" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="cf" type="xs:string"/>
+      <xs:element name="context">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="ns5:idRh"/>
+            <xs:element ref="ns5:identity"/>
+            <xs:element ref="ns5:cf"/>
+            <xs:element ref="ns5:position"/>
+            <xs:element ref="ns5:teams"/>
+            <xs:element ref="ns5:guid"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="firstName" type="xs:string"/>
+      <xs:element name="guid" type="xs:string"/>
+      <xs:element name="idRh" type="xs:string"/>
+      <xs:element name="identity">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="ns5:firstName"/>
+            <xs:element ref="ns5:lastName"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="lastName" type="xs:string"/>
+      <xs:element name="position" type="xs:string"/>
+      <xs:element name="team" type="xs:string"/>
+      <xs:element name="teams">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" ref="ns5:team"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.techlab.fr/SGOV2/Schemas/SaveTask/SaveTaskResponse.xsd" xmlns="http://www.techlab.fr/SGOV2/Schemas/SaveTask/SaveTaskResponse.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="saveTaskResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" ref="ns1:workItem"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="taskId" type="xs:int"/>
+      <xs:element name="taskVersion" type="xs:int"/>
+      <xs:element name="workItem">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" ref="ns1:taskId"/>
+            <xs:element minOccurs="0" ref="ns1:taskVersion"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.techlab.fr/SGOV2/Schemas/SaveTask/SaveTaskRequest.xsd" xmlns="http://www.techlab.fr/SGOV2/Schemas/SaveTask/SaveTaskRequest.xsd" xmlns:ns0="http://www.techlab.com/schemas/BUSINESSV2-Services/SharedResources/Partners/Schema.xsd" xmlns:ns1="http://www.techlab.fr/SGOV2/Schemas/Context" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://www.techlab.fr/SGOV2/Schemas/Context"/>
+      <xs:import namespace="http://www.techlab.com/schemas/BUSINESSV2-Services/SharedResources/Partners/Schema.xsd"/>
+      <xs:element name="folderNumber" type="xs:string"/>
+      <xs:element name="formFields">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="ns0:formField"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="saveTaskRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="ns1:context"/>
+            <xs:element ref="taskId"/>
+            <xs:element ref="taskName"/>
+            <xs:element ref="taskVersion"/>
+            <xs:element ref="formFields"/>
+            <xs:element ref="folderNumber"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="taskId" type="xs:string"/>
+      <xs:element name="taskName" type="xs:string"/>
+      <xs:element name="taskVersion" type="xs:string"/>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.techlab.fr/SGOV2/Schemas/TechnicalException" xmlns="http://www.techlab.fr/SGOV2/Schemas/TechnicalException" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="code" type="xs:string"/>
+      <xs:element name="message" type="xs:string"/>
+      <xs:element name="technicalException">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="ns2:message"/>
+            <xs:element ref="ns2:code"/>
+          </xs:sequence>
+          <xs:attribute name="name" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+    </xs:schema>
+    <xs:schema attributeFormDefault="unqualified" elementFormDefault="qualified" targetNamespace="http://www.techlab.fr/SGOV2/Schemas/FunctionnalException" xmlns="http://www.techlab.fr/SGOV2/Schemas/FunctionnalException" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="code" type="xs:string"/>
+      <xs:element name="functionnalException">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element ref="ns3:message"/>
+            <xs:element ref="ns3:code"/>
+          </xs:sequence>
+          <xs:attribute name="name" type="xs:string"/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="message" type="xs:string"/>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="saveTaskResponse">
+    <wsdl:part name="parameters" element="ns1:saveTaskResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="technicalException">
+    <wsdl:part name="parameters" element="ns2:technicalException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="functionnalException">
+    <wsdl:part name="parameters" element="ns3:functionnalException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="saveTaskRequest">
+    <wsdl:part name="parameters" element="ns0:saveTaskRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="saveTaskPortType">
+    <wsdl:operation name="saveTaskOp">
+      <wsdl:input message="tns:saveTaskRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:saveTaskResponse">
+    </wsdl:output>
+      <wsdl:fault name="fault1" message="tns:technicalException">
+    </wsdl:fault>
+      <wsdl:fault name="fault2" message="tns:functionnalException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="saveTaskEndpointBinding" type="tns:saveTaskPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="saveTaskOp">
+      <soap:operation soapAction="/SGOV2/Services/saveTask/saveTask/saveTaskEndpoint/saveTaskOp" style="document"/>
+      <wsdl:input>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body parts="parameters" use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="fault1">
+        <soap:fault name="fault1" use="literal"/>
+      </wsdl:fault>
+      <wsdl:fault name="fault2">
+        <soap:fault name="fault2" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="intfsaveTask">
+    <wsdl:port name="saveTaskEndpoint" binding="tns:saveTaskEndpointBinding">
+      <soap:address location="http://test:8080/"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

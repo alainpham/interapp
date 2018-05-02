@@ -1,0 +1,14 @@
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:sav="http://www.techlab.fr/SGOV2/Schemas/SaveTask/SaveTaskResponse.xsd">
+    <soapenv:Header/>
+    <soapenv:Body>
+        <sav:saveTaskResponse>
+            <!--1 or more repetitions:-->
+            <sav:workItem>
+                <!--Optional:-->
+                <sav:taskId>67342</sav:taskId>
+                <!--Optional:-->
+                <sav:taskVersion>7</sav:taskVersion>
+            </sav:workItem>
+        </sav:saveTaskResponse>
+    </soapenv:Body>
+</soapenv:Envelope>

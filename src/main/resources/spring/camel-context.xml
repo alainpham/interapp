@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd        http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd">
+    <!-- Define a traditional camel context here -->
+    <bean
+        class="org.apache.camel.component.servlet.CamelHttpTransportServlet" id="camelHttpTransportServlet"/>
+    <bean
+        class="org.springframework.boot.web.servlet.ServletRegistrationBean" id="servlet">
+        <property name="name" value="CamelServlet"/>
+        <property name="servlet" ref="camelHttpTransportServlet"/>
+        <property name="urlMappings" value="/camelrest/*"/>
+    </bean>
+    <camelContext id="interapp" xmlns="http://camel.apache.org/schema/spring">
+        <restConfiguration apiContextPath="/api-docs" bindingMode="json"
+            component="servlet" contextPath="/camelrest" port="8092">
+            <dataFormatProperty key="prettyPrint" value="true"/>
+            <apiProperty key="cors" value="true"/>
+            <apiProperty key="api.title" value="interapp"/>
+            <apiProperty key="api.version" value="1.0.0"/>
+        </restConfiguration>
+        <rest>
+            <post
+                outType="fr.techlab.sgov2.schemas.savetask.savetaskresponse.SaveTaskResponse"
+                type="fr.techlab.sgov2.schemas.savetask.savetaskrequest.SaveTaskRequest" uri="/task">
+                <to uri="direct:savetask"/>
+            </post>
+        </rest>
+        <route id="saveTaskRoute">
+            <!-- transform JSON to SOAP -->
+            <!-- transform response from SOAP to JSON -->
+            <from id="_from1" uri="direct:savetask"/>
+            <log id="_log1" message="got request,${body.class} ${body}"/>
+            <to id="_to1" uri="dataformat:soapjaxb:marshal?contextPath=fr.techlab.sgov2.schemas.savetask.savetaskrequest"/>
+            <to id="_to4" uri="direct:backend"/>
+            <log id="_log3" message="SOAP response message : ${body.class} ${body}"/>
+            <to id="_to3" uri="dataformat:soapjaxb:unmarshal?contextPath=fr.techlab.sgov2.schemas.savetask.savetaskresponse"/>
+            <setHeader headerName="Content-Type" id="_setHeader3">
+                <constant>application/json</constant>
+            </setHeader>
+            <log id="_log4" message="HEADERS : ${headers}"/>
+            <log id="_log5" message="OUTPUT response message : ${body.class} ${body}"/>
+        </route>
+        <route id="callBackend">
+            <!-- invoke SOAP backend -->
+            <!-- invocation to backend -->
+            <from id="_from2" uri="direct:backend"/>
+            <log id="_log2" message="SOAP request message : ${body.class} ${body}"/>
+            <setHeader headerName="CamelHttpPath" id="_setHeader1">
+                <simple>/soap/task</simple>
+            </setHeader>
+            <setHeader headerName="SOAPAction" id="_setHeader2">
+                <constant>/SGOV2/Services/saveTask/saveTask/saveTaskEndpoint/saveTaskOp</constant>
+            </setHeader>
+            <to uri="language:simple:resource:classpath:data/taskreply.xml"/>
+            <convertBodyTo id="_convertBodyTo1" type="java.lang.String"/>
+        </route>
+    </camelContext>
+</beans>
