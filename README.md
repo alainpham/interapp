@@ -2,6 +2,10 @@
 
 oc create secret generic fuse-tls --from-file=src/main/resources/keystore.p12
 
+https://0.0.0.0:8092/webjars/swagger-ui/2.1.0/index.html?url=/camelrest/api-docs 
+
+https://interapp-fuse-dev.apps.88.198.65.4.nip.io/webjars/swagger-ui/2.1.0/index.html?url=/camelrest/api-docs 
+
 Test : 
 
 ```
@@ -33,7 +37,7 @@ curl -X POST --header "Content-Type: application/json" --header "Acept: applicat
     ]
   },
   \"folderNumber\": \"string\"
-}" "http://interapp-fuse-lbp-dev.lpb-apps.openhybridcloud.io/camelrest/task"
+}" "https://interapp-fuse-dev.apps.88.198.65.4.nip.io/camelrest/task" --insecure
 ```
 
 ```
