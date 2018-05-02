@@ -102,6 +102,7 @@ objects:
         - "${APP_NAME}"
         from:
           kind: ImageStreamTag
+          namespace: dev
           name: "${APP_NAME}:prod"
     replicas: 1
     selector:
