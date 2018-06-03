@@ -36,7 +36,7 @@ parameters:
   description: The application version.
 - name: MAVEN_MIRROR_URL
   displayName: Maven Mirror
-  value: http://192.168.122.1:8081/nexus/content/groups/public/
+  value: http://192.168.42.1:8081/nexus/content/groups/public/
 - name: MAVEN_ARGS
   displayName: Maven Arguments
   value: package -DskipTests -Dfabric8.skip -e -B
